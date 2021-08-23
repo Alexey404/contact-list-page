@@ -342,6 +342,18 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
 
   const handleClose = () => {
     setOpen(false)
+    setSelected([])
+  }
+
+  const handleDelete = () => {
+    handleClose()
+    remove()
+    setOpen(false)
+  }
+
+  const handlerEdit = (e, row) => {
+    handleClickOpen(row, true)
+    handleClick(e, row.id)
   }
 
   const remove = () => {
@@ -432,7 +444,7 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
                         tabIndex={-1}
                         key={row.id}
                         selected={isItemSelected}
-                        onClick={() => handleClickOpen(row, true)}
+                        onClick={e => handlerEdit(e, row)}
                       >
                         <TableCell
                           padding='checkbox'
@@ -561,6 +573,7 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
             </Box>
           </DialogContent>
           <DialogActions>
+            {isEdit ? <Button onClick={handleDelete}>Delete</Button> : ''}
             {isEdit ? (
               <Button onClick={handleSave}>Save</Button>
             ) : (
