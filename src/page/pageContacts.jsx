@@ -325,6 +325,8 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
 
   const isSelected = name => selected.indexOf(name) !== -1
 
+  console.log(selected.indexOf(1))
+
   const emptyRows =
     page > 0
       ? Math.max(0, (1 + page) * rowsPerPage - filteredContacts.length)
@@ -341,19 +343,23 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
   }
 
   const handleClose = () => {
+    if (isEdit) {
+      handleClick('', activEdit.id)
+    }
     setOpen(false)
-    setSelected([])
   }
 
   const handleDelete = () => {
     handleClose()
-    remove()
     setOpen(false)
+    setRows(prev => [...prev].filter(row => row.id !== activEdit.id))
   }
 
   const handlerEdit = (e, row) => {
+    if (!isSelected(activEdit.id)) {
+      handleClick(e, row.id)
+    }
     handleClickOpen(row, true)
-    handleClick(e, row.id)
   }
 
   const remove = () => {
