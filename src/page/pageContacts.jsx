@@ -21,10 +21,10 @@ import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import DeleteIcon from '@material-ui/icons/Delete'
+import SearchIcon from '@material-ui/icons/Search'
 import { visuallyHidden } from '@material-ui/utils'
 import * as React from 'react'
 import { Redirect } from 'react-router-dom'
-import SearchIcon from '@material-ui/icons/Search'
 
 const createData = (id, name, surname, number, mail) => {
   return {
@@ -343,22 +343,18 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
   }
 
   const handleClose = () => {
-    if (isEdit) {
-      handleClick('', activEdit.id)
-    }
     setOpen(false)
   }
 
   const handleDelete = () => {
+    setSelected(prev => [...prev].filter(el => el !== activEdit.id))
+
+    console.log(activEdit.id)
     handleClose()
-    setOpen(false)
     setRows(prev => [...prev].filter(row => row.id !== activEdit.id))
   }
 
   const handlerEdit = (e, row) => {
-    if (!isSelected(activEdit.id)) {
-      handleClick(e, row.id)
-    }
     handleClickOpen(row, true)
   }
 
