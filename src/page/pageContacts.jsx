@@ -182,7 +182,6 @@ const EnhancedTableToolbar = ({
         )}
       </Grid>
       <SearchIcon />
-
       <Grid item xs={2} md={1}>
         <FormControl fullWidth>
           <NativeSelect
@@ -200,11 +199,9 @@ const EnhancedTableToolbar = ({
           </NativeSelect>
         </FormControl>
       </Grid>
-
       <Grid item xs={2} md={1}>
         <Input onChange={e => setValue(e.currentTarget.value)} value={value} />
       </Grid>
-
       <Grid item xs={1} md={5}>
         {numSelected > 0 ? (
           <Typography
@@ -230,7 +227,12 @@ const EnhancedTableToolbar = ({
         <Button
           size='small'
           variant='contained'
-          onClick={() => handleClickOpen('', false)}
+          onClick={() =>
+            handleClickOpen(
+              { name: '', surname: '', number: '', mail: '' },
+              false
+            )
+          }
         >
           Add new contact
         </Button>
@@ -250,7 +252,12 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
   const [selected, setSelected] = React.useState([])
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(10)
-  const [activEdit, setActivEdit] = React.useState('')
+  const [activEdit, setActivEdit] = React.useState({
+    name: '',
+    surname: '',
+    number: '',
+    mail: '',
+  })
   const [isEdit, setIsEdit] = React.useState(false)
   const [value, setValue] = React.useState('')
   const [change, setChange] = React.useState('name')
