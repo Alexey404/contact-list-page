@@ -52,6 +52,7 @@ const stableSort = (array, comparator) => {
 }
 
 export const EnhancedTable = ({ isLogin, authorizationOff }) => {
+  const [isError, setIsError] = useState(false)
   const [order, setOrder] = useState('asc')
   const [orderBy, setOrderBy] = useState('id')
   const [selected, setSelected] = useState([])
@@ -141,10 +142,12 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
   const handleClickOpen = (e, isTrue) => {
     setIsEdit(isTrue)
     setActivEdit(e)
+    setIsError(false)
     setOpen(true)
   }
 
   const handleClose = () => {
+    setIsError(false)
     setOpen(false)
   }
 
@@ -311,6 +314,8 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
         open={open}
         handleDelete={handleDelete}
         handleSave={handleSave}
+        isError={isError}
+        setIsError={setIsError}
       />
     </>
   )
