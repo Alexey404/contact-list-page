@@ -19,14 +19,14 @@ export const ModalDialog = ({
   isError,
 }) => {
   const setValueHandler = (e, key) => {
-    const length = e.currentTarget.value.length
-    if (length > 15) return
+    const value = e.currentTarget.value
+    if (value.length > 15) return
     setActivEdit({
       ...activEdit,
-      [key]: e.currentTarget.value,
+      [key]: value,
     })
   }
-  
+
   const handleSavestate = () => {
     if (
       activEdit.name.length >= 3 &&
@@ -42,7 +42,7 @@ export const ModalDialog = ({
   }
 
   return (
-    <div>
+    <>
       <Dialog
         fullScreen={fullScreen}
         open={open}
@@ -115,6 +115,6 @@ export const ModalDialog = ({
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   )
 }

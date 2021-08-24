@@ -6,6 +6,7 @@ import { EnhancedTable } from './Components/PageContact/PageContacts'
 
 const App = () => {
   const [isLogin, setIsLogin] = useState(false)
+  const [isAlert, setIsAlert] = useState(true)
   const [login, setLogin] = useState([{ login: 'admin', password: 'admin' }])
   const storage = window.localStorage
 
@@ -15,6 +16,7 @@ const App = () => {
         ? authorization()
         : ''
     )
+    setIsAlert(false)
   }
 
   const authorization = () => {
@@ -26,6 +28,9 @@ const App = () => {
     setIsLogin(false)
     storage.removeItem('auth')
   }
+  useEffect(() => {
+    setIsAlert(true)
+  }, [isLogin])
 
   useEffect(() => {
     setIsLogin(storage.getItem('auth'))
@@ -36,7 +41,11 @@ const App = () => {
       <div className='App'>
         <Switch>
           <Route exact path='/'>
-            <Login loginHendler={loginHendler} isLogin={isLogin} />
+            <Login
+              loginHendler={loginHendler}
+              isLogin={isLogin}
+              isAlert={isAlert}
+            />
           </Route>
           <Route path='/contacts'>
             <EnhancedTable

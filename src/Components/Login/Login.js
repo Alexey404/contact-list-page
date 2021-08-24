@@ -1,8 +1,15 @@
-import { Box, Button, Container, Grid, TextField } from '@material-ui/core'
+import {
+  Alert,
+  Box,
+  Button,
+  Container,
+  Grid,
+  TextField,
+} from '@material-ui/core'
 import { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 
-export const Login = ({ loginHendler, isLogin }) => {
+export const Login = ({ loginHendler, isLogin, isAlert }) => {
   const [login, setLogin] = useState({ login: '', password: '' })
 
   const loginHandler = () => {
@@ -27,7 +34,7 @@ export const Login = ({ loginHendler, isLogin }) => {
             sx={{
               border: '1px solid black',
               width: 300,
-              height: 350,
+              height: 370,
               padding: 5,
               borderRadius: 3,
             }}
@@ -62,6 +69,13 @@ export const Login = ({ loginHendler, isLogin }) => {
                   }
                 />
               </Grid>
+              {!isAlert ? (
+                <Grid item xs={12}>
+                  <Alert severity='error'>wrong login or password</Alert>
+                </Grid>
+              ) : (
+                ''
+              )}
               <Grid item xs={12}>
                 <Button onClick={loginHandler} variant='contained'>
                   Next
