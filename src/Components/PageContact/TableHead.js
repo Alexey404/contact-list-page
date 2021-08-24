@@ -25,10 +25,10 @@ const headCells = [
     label: 'Surname',
   },
   {
-    id: 'number',
+    id: 'phone',
     numeric: true,
     disablePadding: false,
-    label: 'Number',
+    label: 'Phone',
   },
   {
     id: 'mail',

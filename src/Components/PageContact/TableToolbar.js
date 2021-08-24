@@ -56,7 +56,7 @@ export const EnhancedTableToolbar = ({
           >
             <option value={'name'}>Name</option>
             <option value={'surname'}>Surname</option>
-            <option value={'number'}>Number</option>
+            <option value={'phone'}>Phone</option>
             <option value={'mail'}>Mail</option>
           </NativeSelect>
         </FormControl>
@@ -91,7 +91,7 @@ export const EnhancedTableToolbar = ({
           variant='contained'
           onClick={() =>
             handleClickOpen(
-              { name: '', surname: '', number: '', mail: '' },
+              { name: '', surname: '', phone: '', mail: '' },
               false
             )
           }

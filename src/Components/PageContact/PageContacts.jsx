@@ -15,12 +15,12 @@ import { ModalDialog } from './Modal'
 import { EnhancedTableHead } from './TableHead'
 import { EnhancedTableToolbar } from './TableToolbar'
 
-const createData = (id, name, surname, number, mail) => {
+const createData = (id, name, surname, phone, mail) => {
   return {
     id,
     name,
     surname,
-    number,
+    phone,
     mail,
   }
 }
@@ -64,7 +64,7 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
   const [activEdit, setActivEdit] = useState({
     name: '',
     surname: '',
-    number: '',
+    phone: '',
     mail: '',
   })
   const [rows, setRows] = useState([
@@ -72,7 +72,7 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
       id: 1,
       name: 'Alex',
       surname: 'Lager',
-      number: 89182323222,
+      phone: 89182323222,
       mail: 'Chtoto@gmail.com',
     },
   ])
@@ -83,7 +83,7 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
       .includes(String(value.toLowerCase()))
   })
 
-  filteredContacts.map(e => createData(e.name, e.surname, e.number, e.mail))
+  filteredContacts.map(e => createData(e.name, e.surname, e.phone, e.mail))
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc'
@@ -182,7 +182,7 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
             : 1,
           name: activEdit.name,
           surname: activEdit.surname,
-          number: activEdit.number,
+          phone: activEdit.phone,
           mail: activEdit.mail,
         },
       ])
@@ -194,7 +194,7 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
                 ...item,
                 name: activEdit.name,
                 surname: activEdit.surname,
-                number: activEdit.number,
+                phone: activEdit.phone,
                 mail: activEdit.mail,
               }
             : item
@@ -274,7 +274,7 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
                         </TableCell>
                         <TableCell align='right'>{row.name}</TableCell>
                         <TableCell align='right'>{row.surname}</TableCell>
-                        <TableCell align='right'>{row.number}</TableCell>
+                        <TableCell align='right'>{row.phone}</TableCell>
                         <TableCell align='right'>{row.mail}</TableCell>
                       </TableRow>
                     )

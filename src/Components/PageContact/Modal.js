@@ -59,15 +59,15 @@ export const ModalDialog = ({
             </Grid>
             <Grid container spacing={2}>
               <Grid item xs={2} md={2}>
-                Number:
+              Phone:
               </Grid>
               <Grid item xs={4} md={4}>
                 <Input
-                  value={activEdit.number}
+                  value={activEdit.phone}
                   onChange={e =>
                     setActivEdit({
                       ...activEdit,
-                      number: e.currentTarget.value,
+                      phone: e.currentTarget.value,
                     })
                   }
                 />
