@@ -1,30 +1,19 @@
-import { FormControl, Grid, Input, NativeSelect } from '@material-ui/core'
 import Box from '@material-ui/core/Box'
-import Button from '@material-ui/core/Button'
 import Checkbox from '@material-ui/core/Checkbox'
-import Dialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent'
-import IconButton from '@material-ui/core/IconButton'
 import Paper from '@material-ui/core/Paper'
-import { alpha, useTheme } from '@material-ui/core/styles'
+import { useTheme } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableContainer from '@material-ui/core/TableContainer'
-import TableHead from '@material-ui/core/TableHead'
 import TablePagination from '@material-ui/core/TablePagination'
 import TableRow from '@material-ui/core/TableRow'
-import TableSortLabel from '@material-ui/core/TableSortLabel'
-import Toolbar from '@material-ui/core/Toolbar'
-import Tooltip from '@material-ui/core/Tooltip'
-import Typography from '@material-ui/core/Typography'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import DeleteIcon from '@material-ui/icons/Delete'
-import SearchIcon from '@material-ui/icons/Search'
-import { visuallyHidden } from '@material-ui/utils'
 import * as React from 'react'
 import { Redirect } from 'react-router-dom'
+import { ModalDialog } from './Modal'
+import { EnhancedTableHead } from './TableHead'
+import { EnhancedTableToolbar } from './TableToolbar'
 
 const createData = (id, name, surname, number, mail) => {
   return {
@@ -60,190 +49,6 @@ const stableSort = (array, comparator) => {
     return a[1] - b[1]
   })
   return stabilizedThis.map(el => el[0])
-}
-
-const headCells = [
-  {
-    id: 'id',
-    numeric: false,
-    disablePadding: true,
-    label: 'Id',
-  },
-  {
-    id: 'name',
-    numeric: true,
-    disablePadding: false,
-    label: 'Name',
-  },
-  {
-    id: 'surname',
-    numeric: true,
-    disablePadding: false,
-    label: 'Surname',
-  },
-  {
-    id: 'number',
-    numeric: true,
-    disablePadding: false,
-    label: 'Number',
-  },
-  {
-    id: 'mail',
-    numeric: true,
-    disablePadding: false,
-    label: 'Mail',
-  },
-]
-
-const EnhancedTableHead = ({
-  onSelectAllClick,
-  order,
-  orderBy,
-  numSelected,
-  rowCount,
-  onRequestSort,
-}) => {
-  const createSortHandler = property => event => {
-    onRequestSort(event, property)
-  }
-
-  return (
-    <TableHead>
-      <TableRow>
-        <TableCell padding='checkbox'>
-          <Checkbox
-            color='primary'
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              'aria-label': 'select all desserts',
-            }}
-          />
-        </TableCell>
-        {headCells.map(headCell => (
-          <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component='span' sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  )
-}
-
-const EnhancedTableToolbar = ({
-  numSelected,
-  remove,
-  handleClickOpen,
-  setValue,
-  value,
-  setChange,
-  authorizationOff,
-}) => {
-  return (
-    <Toolbar
-      sx={{
-        pl: { sm: 4 },
-        pr: { xs: 2, sm: 2 },
-        ...(numSelected > 0 && {
-          bgcolor: theme =>
-            alpha(
-              theme.palette.primary.main,
-              theme.palette.action.activatedOpacity
-            ),
-        }),
-      }}
-    >
-      <Grid item xs={1} md={1}>
-        {numSelected > 0 ? (
-          <Tooltip title='Delete'>
-            <IconButton onClick={remove}>
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
-        ) : (
-          ''
-        )}
-      </Grid>
-      <SearchIcon />
-      <Grid item xs={2} md={1}>
-        <FormControl fullWidth>
-          <NativeSelect
-            defaultValue={'name'}
-            inputProps={{
-              name: 'Search',
-              id: 'uncontrolled-native',
-            }}
-            onChange={e => setChange(e.currentTarget.value)}
-          >
-            <option value={'name'}>Name</option>
-            <option value={'surname'}>Surname</option>
-            <option value={'number'}>Number</option>
-            <option value={'mail'}>Mail</option>
-          </NativeSelect>
-        </FormControl>
-      </Grid>
-      <Grid item xs={2} md={1}>
-        <Input onChange={e => setValue(e.currentTarget.value)} value={value} />
-      </Grid>
-      <Grid item xs={1} md={5}>
-        {numSelected > 0 ? (
-          <Typography
-            sx={{ flex: '1 1 100%' }}
-            color='inherit'
-            variant='subtitle1'
-            component='div'
-          >
-            {numSelected} selected
-          </Typography>
-        ) : (
-          <Typography
-            sx={{ flex: '1 1 100%' }}
-            variant='h6'
-            id='tableTitle'
-            component='div'
-          >
-            Contacts
-          </Typography>
-        )}
-      </Grid>
-      <Grid item xs={1} md={3}>
-        <Button
-          size='small'
-          variant='contained'
-          onClick={() =>
-            handleClickOpen(
-              { name: '', surname: '', number: '', mail: '' },
-              false
-            )
-          }
-        >
-          Add new contact
-        </Button>
-      </Grid>
-      <Grid item xs={1} md={1}>
-        <Button size='small' variant='contained' onClick={authorizationOff}>
-          Sign out
-        </Button>
-      </Grid>
-    </Toolbar>
-  )
 }
 
 export const EnhancedTable = ({ isLogin, authorizationOff }) => {
@@ -325,8 +130,6 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
 
   const isSelected = name => selected.indexOf(name) !== -1
 
-  console.log(selected.indexOf(1))
-
   const emptyRows =
     page > 0
       ? Math.max(0, (1 + page) * rowsPerPage - filteredContacts.length)
@@ -401,6 +204,7 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
     }
     handleClose()
   }
+
   if (!isLogin) {
     return <Redirect to='/' />
   }
@@ -473,7 +277,6 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
                         <TableCell align='right'>{row.surname}</TableCell>
                         <TableCell align='right'>{row.number}</TableCell>
                         <TableCell align='right'>{row.mail}</TableCell>
-                        <TableCell align='right'></TableCell>
                       </TableRow>
                     )
                   })}
@@ -500,93 +303,16 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
           />
         </Paper>
       </Box>
-
-      <div>
-        <Dialog
-          fullScreen={fullScreen}
-          open={open}
-          onClose={handleClose}
-          aria-labelledby='responsive-dialog-title'
-        >
-          <DialogContent>
-            <h1>{!isEdit ? 'Add new contact' : 'Edit contact'}</h1>
-
-            <Box sx={{ flexGrow: 8 }}>
-              <Grid container spacing={2}>
-                <Grid item xs={2} md={2}>
-                  Name:
-                </Grid>
-                <Grid item xs={4} md={4}>
-                  <Input
-                    value={activEdit.name}
-                    onChange={e =>
-                      setActivEdit({
-                        ...activEdit,
-                        name: e.currentTarget.value,
-                      })
-                    }
-                  />
-                </Grid>
-                <Grid item xs={2} md={2}>
-                  Surname:
-                </Grid>
-                <Grid item xs={4} md={4}>
-                  <Input
-                    value={activEdit.surname}
-                    onChange={e =>
-                      setActivEdit({
-                        ...activEdit,
-                        surname: e.currentTarget.value,
-                      })
-                    }
-                  />
-                </Grid>
-              </Grid>
-              <Grid container spacing={2}>
-                <Grid item xs={2} md={2}>
-                  Number:
-                </Grid>
-                <Grid item xs={4} md={4}>
-                  <Input
-                    value={activEdit.number}
-                    onChange={e =>
-                      setActivEdit({
-                        ...activEdit,
-                        number: e.currentTarget.value,
-                      })
-                    }
-                  />
-                </Grid>
-                <Grid item xs={2} md={2}>
-                  Mail:
-                </Grid>
-                <Grid item xs={4} md={4}>
-                  <Input
-                    value={activEdit.mail}
-                    onChange={e =>
-                      setActivEdit({
-                        ...activEdit,
-                        mail: e.currentTarget.value,
-                      })
-                    }
-                  />
-                </Grid>
-              </Grid>
-            </Box>
-          </DialogContent>
-          <DialogActions>
-            {isEdit ? <Button onClick={handleDelete}>Delete</Button> : ''}
-            {isEdit ? (
-              <Button onClick={handleSave}>Save</Button>
-            ) : (
-              <Button onClick={handleSave}>Add</Button>
-            )}
-            <Button onClick={handleClose} autoFocus>
-              Cancel
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </div>
+      <ModalDialog
+        isEdit={isEdit}
+        fullScreen={fullScreen}
+        handleClose={handleClose}
+        activEdit={activEdit}
+        setActivEdit={setActivEdit}
+        open={open}
+        handleDelete={handleDelete}
+        handleSave={handleSave}
+      />
     </>
   )
 }
