@@ -1,11 +1,10 @@
 import { Grid, Input } from '@material-ui/core'
+import Alert from '@material-ui/core/Alert'
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
-import Alert from '@material-ui/core/Alert'
-import { useState } from 'react'
 
 export const ModalDialog = ({
   isEdit,
@@ -27,6 +26,7 @@ export const ModalDialog = ({
       [key]: e.currentTarget.value,
     })
   }
+  
   const handleSavestate = () => {
     if (
       activEdit.name.length >= 3 &&
@@ -36,10 +36,8 @@ export const ModalDialog = ({
     ) {
       handleSave()
       setIsError(false)
-      console.log(activEdit)
     } else {
       setIsError(true)
-      console.log(activEdit)
     }
   }
 

@@ -11,6 +11,7 @@ export const Login = ({ loginHendler, isLogin }) => {
   if (isLogin) {
     return <Redirect to='/contacts' />
   }
+
   return (
     <div>
       <Container maxWidth='sm'>

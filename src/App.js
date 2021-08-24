@@ -18,7 +18,8 @@ const App = () => {
   }
 
   const authorization = () => {
-    setIsLogin(true).setItem('auth', true)
+    setIsLogin(true)
+    storage.setItem('auth', true)
   }
 
   const authorizationOff = () => {
