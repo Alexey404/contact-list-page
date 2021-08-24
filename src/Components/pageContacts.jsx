@@ -9,7 +9,7 @@ import TableContainer from '@material-ui/core/TableContainer'
 import TablePagination from '@material-ui/core/TablePagination'
 import TableRow from '@material-ui/core/TableRow'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import * as React from 'react'
+import { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import { ModalDialog } from './Modal'
 import { EnhancedTableHead } from './TableHead'
@@ -52,22 +52,22 @@ const stableSort = (array, comparator) => {
 }
 
 export const EnhancedTable = ({ isLogin, authorizationOff }) => {
-  const [order, setOrder] = React.useState('asc')
-  const [orderBy, setOrderBy] = React.useState('id')
-  const [selected, setSelected] = React.useState([])
-  const [page, setPage] = React.useState(0)
-  const [rowsPerPage, setRowsPerPage] = React.useState(10)
-  const [activEdit, setActivEdit] = React.useState({
+  const [order, setOrder] = useState('asc')
+  const [orderBy, setOrderBy] = useState('id')
+  const [selected, setSelected] = useState([])
+  const [page, setPage] = useState(0)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
+  const [isEdit, setIsEdit] = useState(false)
+  const [value, setValue] = useState('')
+  const [change, setChange] = useState('name')
+  const [open, setOpen] = useState(false)
+  const [activEdit, setActivEdit] = useState({
     name: '',
     surname: '',
     number: '',
     mail: '',
   })
-  const [isEdit, setIsEdit] = React.useState(false)
-  const [value, setValue] = React.useState('')
-  const [change, setChange] = React.useState('name')
-
-  const [rows, setRows] = React.useState([
+  const [rows, setRows] = useState([
     {
       id: 1,
       name: 'Alex',
@@ -135,7 +135,6 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
       ? Math.max(0, (1 + page) * rowsPerPage - filteredContacts.length)
       : 0
 
-  const [open, setOpen] = React.useState(false)
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
 
