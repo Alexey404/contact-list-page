@@ -18,9 +18,9 @@ const App = () => {
   }
 
   const authorization = () => {
-    setIsLogin(true)
-    storage.setItem('auth', true)
+    setIsLogin(true).setItem('auth', true)
   }
+
   const authorizationOff = () => {
     setIsLogin(false)
     storage.removeItem('auth')
@@ -43,7 +43,9 @@ const App = () => {
               authorizationOff={authorizationOff}
             />
           </Route>
-          <Route path='*' render={() => <div>404 Not definde</div>} />
+          <Route path='*'>
+            <div>404 Not definde</div>
+          </Route>
         </Switch>
       </div>
     </Router>
