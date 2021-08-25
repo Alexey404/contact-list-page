@@ -34,7 +34,7 @@ const App = () => {
 
   useEffect(() => {
     setIsLogin(storage.getItem('auth'))
-  }, [])
+  }, [storage])
 
   return (
     <Router>

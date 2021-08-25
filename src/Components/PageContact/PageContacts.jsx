@@ -147,7 +147,6 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
   }
 
   const handleClose = () => {
-    setIsError(false)
     setOpen(false)
   }
 
