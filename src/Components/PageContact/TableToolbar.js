@@ -32,7 +32,7 @@ export const EnhancedTableToolbar = ({
         }),
       }}
     >
-      <Grid item xs={1} md={1}>
+      <Grid item xs={1}>
         {numSelected > 0 ? (
           <Tooltip title='Delete'>
             <IconButton onClick={remove}>
@@ -44,7 +44,10 @@ export const EnhancedTableToolbar = ({
         )}
       </Grid>
       <SearchIcon />
-      <Grid item xs={2} md={1}>
+      <Grid item xs={1}>
+        <Input onChange={e => setValue(e.currentTarget.value)} value={value} />
+      </Grid>
+      <Grid item xs={'10px'}>
         <FormControl fullWidth>
           <NativeSelect
             defaultValue={'name'}
@@ -61,10 +64,7 @@ export const EnhancedTableToolbar = ({
           </NativeSelect>
         </FormControl>
       </Grid>
-      <Grid item xs={2} md={1}>
-        <Input onChange={e => setValue(e.currentTarget.value)} value={value} />
-      </Grid>
-      <Grid item xs={1} md={5}>
+      <Grid item xs={5}>
         {numSelected > 0 ? (
           <Typography
             sx={{ flex: '1 1 100%' }}
@@ -85,7 +85,7 @@ export const EnhancedTableToolbar = ({
           </Typography>
         )}
       </Grid>
-      <Grid item xs={1} md={3}>
+      <Grid item xs={3}>
         <Button
           size='small'
           variant='contained'
@@ -99,7 +99,7 @@ export const EnhancedTableToolbar = ({
           Add new contact
         </Button>
       </Grid>
-      <Grid item xs={1} md={1}>
+      <Grid item xs={1}>
         <Button size='small' variant='contained' onClick={authorizationOff}>
           Sign out
         </Button>
