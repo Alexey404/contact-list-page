@@ -47,7 +47,7 @@ export const EnhancedTableToolbar = ({
       <Grid item xs={1}>
         <Input onChange={e => setValue(e.currentTarget.value)} value={value} />
       </Grid>
-      <Grid item xs={'10px'}>
+      <Grid item xs={1}>
         <FormControl fullWidth>
           <NativeSelect
             defaultValue={'name'}

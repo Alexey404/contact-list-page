@@ -12,12 +12,9 @@ import { Redirect } from 'react-router-dom'
 export const Login = ({ loginHendler, isLogin, isAlert }) => {
   const [login, setLogin] = useState({ login: '', password: '' })
 
-  const loginHandler = () => {
-    loginHendler(login)
-  }
-  if (isLogin) {
-    return <Redirect to='/contacts' />
-  }
+  const loginHandler = () => loginHendler(login)
+
+  if (isLogin) return <Redirect to='/contacts' />
 
   return (
     <div>

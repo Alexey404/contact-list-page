@@ -26,12 +26,8 @@ const createData = (id, name, surname, phone, mail) => {
 }
 
 const descendingComparator = (a, b, orderBy) => {
-  if (b[orderBy] < a[orderBy]) {
-    return -1
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1
-  }
+  if (b[orderBy] < a[orderBy]) return -1
+  if (b[orderBy] > a[orderBy]) return 1
   return 0
 }
 
@@ -116,13 +112,10 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
         selected.slice(selectedIndex + 1)
       )
     }
-
     setSelected(newSelected)
   }
 
-  const handleChangePage = (e, newPage) => {
-    setPage(newPage)
-  }
+  const handleChangePage = (e, newPage) => setPage(newPage)
 
   const handleChangeRowsPerPage = event => {
     setRowsPerPage(parseInt(event.target.value, 10))
@@ -146,69 +139,42 @@ export const EnhancedTable = ({ isLogin, authorizationOff }) => {
     setOpen(true)
   }
 
-  const handleClose = () => {
-    setOpen(false)
-  }
+  const handleClose = () => setOpen(false)
 
   const handleDelete = () => {
     setSelected(prev => [...prev].filter(el => el !== activEdit.id))
-
-    console.log(activEdit.id)
     handleClose()
     setRows(prev => [...prev].filter(row => row.id !== activEdit.id))
   }
 
-  const handlerEdit = (e, row) => {
-    handleClickOpen(row, true)
-  }
+  const handlerEdit = (e, row) => handleClickOpen(row, true)
 
   const remove = () => {
-    selected.map(e => {
-      return setRows(prev => [...prev].filter(row => row.id !== e))
-    })
+    selected.map(e => setRows(prev => [...prev].filter(row => row.id !== e)))
     setSelected([])
   }
 
   const handleSave = () => {
-    if (!isEdit) {
-      setRows([
-        ...rows,
-        {
-          id: rows[0]
-            ? Math.max.apply(
-                Math,
-                rows.map(i => {
-                  return i.id
-                })
-              ) + 1
-            : 1,
-          name: activEdit.name,
-          surname: activEdit.surname,
-          phone: activEdit.phone,
-          mail: activEdit.mail,
-        },
-      ])
-    } else {
-      setRows(
-        rows.map(item =>
-          item.id === activEdit.id
-            ? {
-                ...item,
-                name: activEdit.name,
-                surname: activEdit.surname,
-                phone: activEdit.phone,
-                mail: activEdit.mail,
-              }
-            : item
+    isEdit
+      ? setRows(
+          rows.map(item => (item.id === activEdit.id ? { ...activEdit } : item))
         )
-      )
-    }
-    handleClose()
+      : setRows([
+          ...rows,
+          {
+            id:
+              Math.max.apply(
+                Math,
+                rows.map(i => i.id)
+              ) + 1,
+            ...activEdit,
+          },
+        ])
+    setOpen(false)
   }
 
-  if (!isLogin) {
-    return <Redirect to='/' />
-  }
+  if (!isLogin) return <Redirect to='/' />
+
   return (
     <>
       <Box sx={{ width: '100%' }}>

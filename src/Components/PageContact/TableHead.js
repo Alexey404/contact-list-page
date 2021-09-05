@@ -46,9 +46,7 @@ export const EnhancedTableHead = ({
   rowCount,
   onRequestSort,
 }) => {
-  const createSortHandler = property => event => {
-    onRequestSort(event, property)
-  }
+  const createSortHandler = property => event => onRequestSort(event, property)
 
   return (
     <TableHead>

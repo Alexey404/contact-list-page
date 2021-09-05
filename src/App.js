@@ -28,13 +28,9 @@ const App = () => {
     setIsLogin(false)
     storage.removeItem('auth')
   }
-  useEffect(() => {
-    setIsAlert(true)
-  }, [isLogin])
+  useEffect(() => setIsAlert(true), [isLogin])
 
-  useEffect(() => {
-    setIsLogin(storage.getItem('auth'))
-  }, [storage])
+  useEffect(() => setIsLogin(storage.getItem('auth')), [storage])
 
   return (
     <Router>
